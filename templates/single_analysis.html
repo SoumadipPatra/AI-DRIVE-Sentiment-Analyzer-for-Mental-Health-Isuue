@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Feedback Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>💬 Tweets/ Feedback Analysis</h1>
+
+        <nav>
+            <ul>
+                <li><a href="/bulk">📊 Bulk Analysis</a></li>
+                <li><a href="/single_analysis">💬 Single Feedback</a></li>
+                <li><a href="{{ url_for('patient') }}">Get the patient Report</a></li>
+                <li><a href="/">🏠 Home</a></li>
+            </ul>
+        </nav>
+
+        <textarea id="feedbackInput" placeholder="Enter feedback or a tweet..."></textarea>
+        <button onclick="analyzeFeedback()">Analyze</button>
+
+        <h2>🔍 Analysis Result</h2>
+        <div id="result">
+            <p><strong>Sentiment:</strong> <span id="sentimentResult">Enter text and click analyze.</span></p>
+            <p><strong>Emotion:</strong> <span id="emotionResult">-</span></p>
+            <p><strong>Status:</strong> <span id="statusResult">-</span></p>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

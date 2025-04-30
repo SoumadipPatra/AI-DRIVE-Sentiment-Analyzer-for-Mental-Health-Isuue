@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Sentiment Analysis Dashboard</h1>
+
+        <nav>
+            <ul>
+                <li><a href="/bulk">📊 Bulk Analysis</a></li>
+                <li><a href="/single_analysis">💬 Single Feedback</a></li>
+                <li><a href="{{ url_for('patient') }}">Get the patient Report</a></li>
+                <li><a href="/">🏠 Home</a></li>
+            </ul>
+        </nav>
+
+        <input type="file" id="fileInput" accept=".csv">
+        <button onclick="uploadFile()">Upload & Analyze</button>
+
+        <h2>📊 Results</h2>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Sentiment</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <h2>📈 Sentiment Summary</h2>
+        <p id="summaryText">Upload a file to see results.</p>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

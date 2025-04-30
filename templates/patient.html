@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Status</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Mental Health Report</h1>
+
+        <nav>
+            <ul>
+                <li><a href="/bulk">📊 Bulk Analysis</a></li>
+                <li><a href="/single_analysis">💬 Single Feedback</a></li>
+                <li><a href="/">🏠 Home</a></li>
+            </ul>
+        </nav>
+
+        <!-- Patient Input Form -->
+        <form id="patientForm">
+            <input type="text" id="patientID" placeholder="Enter Patient ID (e.g., P001)" required>
+            <button type="submit">Check Status</button>
+        </form>
+
+        <!-- Display Patient Status -->
+        <div id="patientStatus" class="status-box"></div>
+    </div>
+
+    <script>
+        document.getElementById("patientForm").addEventListener("submit", function(event) {
+            event.preventDefault();  // Prevent page reload
+
+            const patientId = document.getElementById("patientID").value.trim().toUpperCase();
+
+            if (!patientId) {
+                alert("Please enter a Patient ID!");
+                return;
+            }
+
+            fetch("/fetch_patient", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ patient_id: patientId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statusDiv = document.getElementById("patientStatus");
+
+                if (data.error) {
+                    statusDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+                } else {
+                    statusDiv.innerHTML = `
+                        <h3>Patient ID: ${patientId}</h3>
+                        <p><strong>🧠 Personality Disorder Type:</strong> ${data.PersonalityType}</p>
+                        <table border="1">
+                            <tr><th>Status</th><th>Count</th></tr>
+                            <tr><td>Normal</td><td>${data.Normal}</td></tr>
+                            <tr><td>Depression</td><td>${data.Depression}</td></tr>
+                            <tr><td>Suicidal</td><td>${data.Suicidal}</td></tr>
+                            <tr><td>Anxiety</td><td>${data.Anxiety}</td></tr>
+                            <tr><td>Bipolar</td><td>${data.Bipolar}</td></tr>
+                            <tr><td>Stress</td><td>${data.Stress}</td></tr>
+                            <tr><td>Personality Disorder</td><td>${data.Personality_disorder}</td></tr>
+                        </table>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("patientStatus").innerHTML = `<p style="color: red;">An error occurred. Please try again.</p>`;
+            });
+        });
+    </script>
+</body>
+</html>

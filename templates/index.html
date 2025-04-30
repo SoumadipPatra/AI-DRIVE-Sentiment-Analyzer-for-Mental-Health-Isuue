@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Sentiment Analyzer</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Sentiment Analyzer! 😊</h1>
+        <p>Check your sentiment easily!</p>
+
+        <!-- Patient Section -->
+        <div class="section patient-section">
+            <h2>Patient</h2>
+            <ul>
+                <li><a href="{{ url_for('single_analysis') }}">Analyze your thoughts</a></li>
+                <li><a href="{{ url_for('bulk') }}">Upload a CSV for Analysis</a></li>
+            </ul>
+        </div>
+
+        <!-- Doctor Section -->
+        <div class="section doctor-section">
+            <h2>Doctor</h2>
+            <ul>
+                <li><a href="{{ url_for('patient') }}">Get the patient Report</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
